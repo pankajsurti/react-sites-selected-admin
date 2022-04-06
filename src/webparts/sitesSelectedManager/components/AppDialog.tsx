@@ -12,7 +12,7 @@ import { WebPartContext } from '@microsoft/sp-webpart-base';
 interface IAppDialogProps {
     isHidden: boolean;
     hideDialog: (hide: boolean) => void;
-    wpContext: WebPartContext,
+    wpContext: WebPartContext;
     selectedApp: IAzureApp;
     isDeleteMode: boolean;
     showMessage: (type: MessageBarType, message: string, autoDismiss: boolean, error?: any) => void;
@@ -26,7 +26,7 @@ interface IAppDialogState {
 export const AppDialog: React.FunctionComponent<IAppDialogProps> = (props) => {
     const [state, setState] = React.useState<IAppDialogState>(
         { site: '', permission: '' });
-    const [service] = React.useState<IService>(props.wpContext.serviceScope.consume(Service.serviceKey))
+    const [service] = React.useState<IService>(props.wpContext.serviceScope.consume(Service.serviceKey));
     const [mode, setMode] = React.useState({ add: false, delete: false });
 
     React.useEffect(() => {
@@ -35,18 +35,18 @@ export const AppDialog: React.FunctionComponent<IAppDialogProps> = (props) => {
             const payload: IPermission = {
                 roles: state.permission.split('-'),
                 grantedToIdentities: [{ application: props.selectedApp }]
-            }
+            };
             console.warn(payload);
 
             service.addPermissions(url, payload).then(() => {
                 props.showMessage(MessageBarType.success, strings.DialogAddSuccess, true);
             }, (error) => {
                 props.showMessage(MessageBarType.error, strings.ErrorGeneric, false, error);
-            })
+            });
             props.hideDialog(true);
 
         }
-    }, [mode.add])
+    }, [mode.add]);
 
     React.useEffect(() => {
         if (state.site) {
@@ -58,7 +58,7 @@ export const AppDialog: React.FunctionComponent<IAppDialogProps> = (props) => {
             props.hideDialog(true);
         }
 
-    }, [mode.delete])
+    }, [mode.delete]);
 
     const addDialogContentProps = {
         type: DialogType.normal,
@@ -76,7 +76,7 @@ export const AppDialog: React.FunctionComponent<IAppDialogProps> = (props) => {
         <>
             <Dialog className={styles.sitesSelectedManager}
                 hidden={props.isHidden}
-                onDismiss={(() => { props.hideDialog(true) })}
+                onDismiss={(() => { props.hideDialog(true); })}
                 dialogContentProps={props.isDeleteMode ? deleteDialogContentProps : addDialogContentProps}
                 modalProps={{ isBlocking: false, styles: { main: { maxWidth: 450 } }, }}
             >
@@ -84,7 +84,7 @@ export const AppDialog: React.FunctionComponent<IAppDialogProps> = (props) => {
                     placeholder={strings.CheckSitePlaceholder} />
 
                 <ChoiceGroup className={props.isDeleteMode ? styles.dialogHidden : styles.dialogShow} onChange={(ev: any, option: IChoiceGroupOption) => {
-                    setState({ ...state, permission: option.key })
+                    setState({ ...state, permission: option.key });
 
                 }} options={[
                     {
@@ -103,7 +103,7 @@ export const AppDialog: React.FunctionComponent<IAppDialogProps> = (props) => {
 
                 <DialogFooter>
                     <PrimaryButton
-                        onClick={() => { props.isDeleteMode ? setMode({ ...mode, delete: !mode.delete }) : setMode({ ...mode, add: !mode.add }) }}
+                        onClick={() => { props.isDeleteMode ? setMode({ ...mode, delete: !mode.delete }) : setMode({ ...mode, add: !mode.add }); }}
                         text={props.isDeleteMode ? strings.Remove : strings.Grant} />
                     <DefaultButton onClick={(() => props.hideDialog(true))} text={strings.Cancel} />
                 </DialogFooter>

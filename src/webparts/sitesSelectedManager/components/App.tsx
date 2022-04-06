@@ -29,7 +29,7 @@ export const App: React.FunctionComponent<IAppProperties> = (props) => {
     const [state, setState] = React.useState<IAppState>(
         { showMessage: false, site: '', messageBarType: null, message: '', permissionJson: '', apps: null, getPerm: false, permission: '' }
     );
-    const [service] = React.useState<IService>(props.context.serviceScope.consume(Service.serviceKey))
+    const [service] = React.useState<IService>(props.context.serviceScope.consume(Service.serviceKey));
 
     React.useEffect(() => {
         initializeIcons();

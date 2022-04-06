@@ -19,7 +19,7 @@ interface IAppListState {
     items?: IAppListItem[];
     selectionDetails?: IAzureApp;
     menuItems?: ICommandBarItemProps[];
-    dialogHidden?: boolean,
+    dialogHidden?: boolean;
     isDeleteMode?: boolean;
     commandBarDisabled: boolean;
 }
@@ -32,7 +32,7 @@ export const AppList: React.FunctionComponent<IAppListProps> = (props) => {
     const [selection] = React.useState<Selection>(new Selection({
         onSelectionChanged: () => setSelectedApp(selection.getSelection()
         )
-    }))
+    }));
 
     React.useEffect(() => {
         if (selectedApp) {
@@ -43,7 +43,7 @@ export const AppList: React.FunctionComponent<IAppListProps> = (props) => {
                 setState({ ...state, selectionDetails: { id: app.value, displayName: app.name }, commandBarDisabled: false });
             }
         }
-    }, [selectedApp])
+    }, [selectedApp]);
 
     const hideDialog = (hide: boolean) => {
         setState({ ...state, dialogHidden: hide });
@@ -58,7 +58,7 @@ export const AppList: React.FunctionComponent<IAppListProps> = (props) => {
                         text: strings.ListCommandBarAdd,
                         iconProps: { iconName: 'CloudAdd' },
                         split: false,
-                        onClick: () => { setState({ ...state, dialogHidden: false, isDeleteMode: false }) },
+                        onClick: () => { setState({ ...state, dialogHidden: false, isDeleteMode: false }); },
                         disabled: state.commandBarDisabled,
 
                     },
@@ -67,7 +67,7 @@ export const AppList: React.FunctionComponent<IAppListProps> = (props) => {
                         text: strings.ListCommandBarDelete,
                         iconProps: { iconName: 'BlockedSiteSolid12' },
                         split: false,
-                        onClick: () => { setState({ ...state, dialogHidden: false, isDeleteMode: true }) },
+                        onClick: () => { setState({ ...state, dialogHidden: false, isDeleteMode: true }); },
                         disabled: state.commandBarDisabled,
 
                     }

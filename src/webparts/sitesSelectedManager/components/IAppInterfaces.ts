@@ -5,7 +5,7 @@ export interface IPermission {
 }
 
 export interface IPermissionIdentity {
-    application: IAzureApp
+    application: IAzureApp;
 }
 
 export interface ISharePointSite {

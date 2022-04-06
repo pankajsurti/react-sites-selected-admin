@@ -56,7 +56,7 @@ export class Service implements IService {
         permssions.forEach(element => {
             element.grantedToIdentities.forEach(el => {
                 if (el.application.id === appId)
-                    result = element.id
+                    result = element.id;
             });
         });
         if (!result) {

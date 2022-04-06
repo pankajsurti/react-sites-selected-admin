@@ -7,7 +7,7 @@ import * as strings from 'SitesSelectedManagerWebPartStrings';
 import { WebPartContext } from '@microsoft/sp-webpart-base';
 
 interface IAppCheckPermissionsProps {
-    wpContext: WebPartContext,
+    wpContext: WebPartContext;
     showMessage: (type: MessageBarType, message: string, autoDismiss: boolean, error?: any) => void;
 
 }
@@ -20,7 +20,7 @@ interface IAppCheckPermissionsState {
 
 export const AppCheckPermissions: React.FunctionComponent<IAppCheckPermissionsProps> = (props) => {
     const [state, setState] = React.useState<IAppCheckPermissionsState>({ getPerm: false, permissionJson: '' });
-    const [service] = React.useState<IService>(props.wpContext.serviceScope.consume(Service.serviceKey))
+    const [service] = React.useState<IService>(props.wpContext.serviceScope.consume(Service.serviceKey));
     const toggle = () => setState({ ...state, getPerm: !state.getPerm });
 
     React.useEffect(() => {
@@ -33,16 +33,16 @@ export const AppCheckPermissions: React.FunctionComponent<IAppCheckPermissionsPr
                 },
                     (error) => {
                         let errorDetail = strings.ErrorGeneric;
-                        let errorHint = ''
+                        let errorHint = '';
                         if (error.statusCode) {
-                            errorDetail = strings.ErrorHttp
-                            errorHint = `${error.statusCode} - ${error.message} ${strings.ErrorHintUrlFormat}`
+                            errorDetail = strings.ErrorHttp;
+                            errorHint = `${error.statusCode} - ${error.message} ${strings.ErrorHintUrlFormat}`;
                         }
                         props.showMessage(MessageBarType.error, `${errorDetail} ${errorHint}`, false);
-                    })
+                    });
 
         }
-    }, [state.getPerm])
+    }, [state.getPerm]);
 
     return <div className={styles.sitesSelectedManager}><h3>{strings.PermCheckTitle}</h3>
         <p><strong>{strings.Info}</strong> {strings.PermCheckHint}</p>
@@ -54,6 +54,6 @@ export const AppCheckPermissions: React.FunctionComponent<IAppCheckPermissionsPr
             <TextField value={state.permissionJson} label={strings.CheckTextAreaLabel} multiline autoAdjustHeight />
 
         </Stack>
-    </div>
+    </div>;
 
-}
+};
