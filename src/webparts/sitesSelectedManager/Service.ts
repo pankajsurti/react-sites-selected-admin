@@ -6,7 +6,7 @@ import * as strings from 'SitesSelectedManagerWebPartStrings';
 
 export interface IService {
     getApps(apiPermission: string): Promise<IAzureApp[]>;
-    getPermissions(siteUrl: URL): Promise<IPermission[]>
+    getPermissions(siteUrl: URL): Promise<IPermission[]>;
     addPermissions(siteUrl: URL, payload: IPermission): Promise<void>;
     deletePermissions(siteUrl: URL, appId: string): Promise<void>;
 }
@@ -43,11 +43,11 @@ export class Service implements IService {
                 .get((error, site: any, rawResponse?: any) => {
                     if (site) {
                         this.siteId = site.id;
-                        resolve()
+                        resolve();
                     } else {
-                        error ? reject(error) : reject(strings.ErrorUnknown)
+                        error ? reject(error) : reject(strings.ErrorUnknown);
                     }
-                })
+                });
         });
     }
 
@@ -57,7 +57,7 @@ export class Service implements IService {
             element.grantedToIdentities.forEach(el => {
                 if (el.application.id === appId)
                     result = element.id
-            })
+            });
         });
         if (!result) {
             return null;
@@ -77,11 +77,11 @@ export class Service implements IService {
                     if (apps) {
                         const appsWithSitesSelected = apps.value.filter((obj) => {
                             return obj.requiredResourceAccess.some(({ resourceAccess }) =>
-                                resourceAccess.some(({ id }) => id === apiPermissionGuid))
+                                resourceAccess.some(({ id }) => id === apiPermissionGuid));
                         });
                         resolve(appsWithSitesSelected as IAzureApp[]);
                     } else {
-                        error ? reject(error) : reject(strings.ErrorUnknown)
+                        error ? reject(error) : reject(strings.ErrorUnknown);
                     }
                 });
         });
@@ -98,7 +98,7 @@ export class Service implements IService {
                     if (permissions) {
                         resolve(permissions.value);
                     } else {
-                        error ? reject(error) : reject(strings.ErrorUnknown)
+                        error ? reject(error) : reject(strings.ErrorUnknown);
                     }
                 });
         });
@@ -113,7 +113,7 @@ export class Service implements IService {
                 .version("v1.0")
                 .post(payload, (error, response: any, rawResponse?: any) => {
                     if (error) {
-                        error ? reject(error) : reject(strings.ErrorUnknown)
+                        error ? reject(error) : reject(strings.ErrorUnknown);
                     } else {
                         resolve();
                     }
@@ -126,7 +126,7 @@ export class Service implements IService {
 
 
             console.warn('Are we herrrrre');
-            
+
             const client = await this._msGraphClientFactory.getClient();
             console.warn('Are we herrrrre1');
 
@@ -134,11 +134,11 @@ export class Service implements IService {
             console.warn('Are we herrrrre2');
             console.warn('ahhhahha');
             console.warn(appId);
-            
+
             const permissionId = this.getPermissionId(appId, permissions);
             console.warn('Are we herrrrre3....');
             console.warn(permissionId);
-            
+
 
             if (permissionId) {
                 client
@@ -147,16 +147,16 @@ export class Service implements IService {
                     .delete((error, response: any, rawResponse?: any) => {
                         if (error) {
                             console.warn('asdasd');
-                            
-                            error ? reject(error) : reject(strings.ErrorUnknown)
+
+                            error ? reject(error) : reject(strings.ErrorUnknown);
                         } else {
                             console.warn('ååååååååååååååå');
-                            
+
                             resolve();
                         }
                     });
             } else {
-                reject(`${strings.ErrorNoPermissionsFound} ${appId}`)
+                reject(`${strings.ErrorNoPermissionsFound} ${appId}`);
             }
         });
     }
