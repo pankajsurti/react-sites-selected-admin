@@ -51,7 +51,7 @@ export const App: React.FunctionComponent<IAppProperties> = (props) => {
                     let _errorDetail = strings.ErrorGettingApps;
                     const _errorHint = strings.ErrorHintGettingApps;
                     if (error.statusCode) {
-                        _errorDetail = `${strings.ErrorHttp} ${error.statusCode} - ${error.message}`
+                        _errorDetail = `${strings.ErrorHttp} ${error.statusCode} - ${error.message}`;
                     }
                     setState({
                         ...state,
@@ -60,9 +60,9 @@ export const App: React.FunctionComponent<IAppProperties> = (props) => {
                         message: `${_errorDetail} ${_errorHint}`,
                         showMessage: true
                     });
-                })
+                });
 
-    }, [])
+    }, []);
 
     const showMessage = (type: MessageBarType, message: string, autoDismiss: boolean = false, error?: any): void => {
         setState({ ...state, showMessage: true, messageBarType: type, message: message });
@@ -71,7 +71,7 @@ export const App: React.FunctionComponent<IAppProperties> = (props) => {
                 setState({ ...state, showMessage: false });
             }, 5000);
         }
-    }
+    };
 
     const resetChoice = () => {
         setState({ ...state, showMessage: false, message: '' });
@@ -124,11 +124,11 @@ export const App: React.FunctionComponent<IAppProperties> = (props) => {
                     <AppCheckPermissions {...{ wpContext: props.context, showMessage: showMessage }} />
                 </PivotItem>
             </Pivot>
-        </div>
+        </div>;
     }
     else {
         return <div>
             <Spinner label={strings.WorkingOnIt} />
-        </div>
+        </div>;
     }
-}
+};

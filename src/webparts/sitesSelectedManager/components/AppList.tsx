@@ -103,5 +103,5 @@ export const AppList: React.FunctionComponent<IAppListProps> = (props) => {
                 isDeleteMode: state.isDeleteMode,
                 showMessage: props.showMessage
             }} />
-    </div>
-}
+    </div>;
+};
